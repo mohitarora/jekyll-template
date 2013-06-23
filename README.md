@@ -1,6 +1,6 @@
 jekyll-template
 ===============
-This jekyll template repository will be used to generate documentation for all the project.
+This jekyll template repository will be used to generate documentation for all the projects.
 
 Benefits of using jekyll template are:
 
