@@ -1,0 +1,16 @@
+---
+layout: default
+title: Documentation Home
+---
+
+<div id="home">
+  <h1>Documents Available:</h1>
+  <ul class="posts">
+    {% for page in site.html_pages %}
+     {% if page.url != "/index.html" %}
+        <li><a href="{{ page.url | remove:'index.html'}}">{{ page.title }}</a></li>
+     {% endif %}   
+    {% endfor %}
+  </ul>
+
+</div>
