@@ -4,7 +4,7 @@ This jekyll template repository will be used to generate documentation for all t
 
 Benefits of using jekyll template are:
 
-1. Documentation look and feel of all thr projects will be same.
+1. Documentation look and feel of all the projects will be same.
 2. Templates will also be version controlled
 3. Any Custom plugin created for Jekyll will be available for all the projects to use.
 
@@ -18,5 +18,6 @@ Steps how documentation will be created.
 
 
 Pre-requisites
+
 1. Ruby, RubyGem, Jekyll is installed on Jenkins machine (gem install jekyll --no-ri --no-rdoc)
 2. DNS Name to S3 Bucket mapping is already done (if required)
