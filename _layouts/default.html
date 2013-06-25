@@ -1,43 +1,71 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title>{{ page.title }}</title>
-        <meta name="viewport" content="width=device-width">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>{{ page.title }}</title>
+    <meta name="viewport" content="width=device-width">
+    <!-- syntax highlighting CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/main.css">
+    <!-- Jquery -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.24/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.24/themes/smoothness/jquery-ui.css">
 
-        <!-- syntax highlighting CSS -->
-        <link rel="stylesheet" href="/css/syntax.css">
+    <!-- Javascript for index searching -->
+    <script src="/js/core/Core.js"></script>
+    <script src="/js/core/AbstractManager.js"></script>
+    <script src="/js/managers/Manager.jquery.js"></script>
 
-        <!-- Custom CSS -->
-        <link rel="stylesheet" href="/css/main.css">
+    <!-- Javascript for Parameter store-->
+    <script src="/js/core/Parameter.js"></script>
+    <script src="/js/core/ParameterStore.js"></script>
 
-    </head>
-    <body>
+    <!-- Javascript for Widget -->
+    <script src="/js/core/AbstractWidget.js"></script>
+    <script src="/js/core/AbstractTextWidget.js"></script>
 
-        <div class="container">
-          <div class="site">
-            <div class="header">
-              <h1 class="title"><a href="/">{{ site.name }}</a></h1>
-              <a class="extra" href="/">Home</a>
+    <!-- Application Specific javascript files-->
+    <script src="/js/widgets/ResultWidget.js"></script>
+    <script src="/js/widgets/TextWidget.js"></script>
+    <script src="/js/solr.js"></script>
+
+</head>
+<body>
+
+<div class="container">
+    <div class="site">
+        <div class="header">
+            <a href="/">Home</a>
+            <div style="float:right;">
+                <h2>Search</h2>
+                <ul id="search">
+                    <input type="text" id="query" name="query" autocomplete="off">
+                </ul>
             </div>
+        </div>
+        <br/>
 
-                {{ content }}
-
-            <div class="footer">
-              <div class="contact">
+        <div id="docs" class="contact">
+            {{ content }}
+        </div>
+        <div class="footer">
+            <div class="contact">
                 <p>
-                  Template GitHub URL<br />
+                    GitHub URL<br/>
                 </p>
-              </div>
-              <div class="contact">
-                <p>
-                  <a href="http://github.com/mohitarora/">http://github.com/mohitarora</a><br />                  
-                </p>
-              </div>
             </div>
-          </div>
-        </div> <!-- /container -->
+            <div class="contact">
+                <p>
+                    <a href="http://github.com/mohitarora/">http://github.com/mohitarora</a><br/>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /container -->
 
-    </body>
+</body>
 </html>
