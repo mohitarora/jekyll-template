@@ -31,7 +31,8 @@ module Jekyll
 				# Build Http Post Request
 				request = Net::HTTP::Post.new(url.request_uri)
 				request["Content-type"] = 'text/html'
-		        request.body = page_text
+		        # Adding Title tag so that solr can index it and it can be shown on results page.
+		        request.body = '<title>' + (item.data['title'] || item.name) + '</title>' + page_text
 				response = http.start {|http| http.request(request) }
 				response_data = REXML::Document.new(response.body)
 				solr_response_code = response_data.elements["response/lst/int[@name='status']"].text
