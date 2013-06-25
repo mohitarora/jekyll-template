@@ -8,12 +8,16 @@ module Jekyll
 
 		def initialize(config = {})
 			super(config)
-			# Raise Error if solr configuration parameters are missing.
-			raise ArgumentError.new 'Missing solr_indexing_url.' unless config['solr_indexing_url']
-			@solr_url = config['solr_indexing_url'].concat("?fmap.content=attr_content&commit=true&literal.id=")
+			# Raise Error if solr host is missing in configuration.
+			raise ArgumentError.new 'Missing solr_host.' unless config['solr_host']
+			@solr_index_url = config['solr_host'].dup.concat("/solr/update/extract?fmap.content=attr_content&commit=true&literal.id=")
+			#@solr_delete_index_url = config['solr_host'].dup.concat("/solr/update?stream.body=<delete><query>*:*</query></delete>&commit=true")
 	    end
 
 		def generate(site)
+		    puts 'Deleting existing index..'
+		    #delete_index()
+		    puts 'Existing index deleted..'
 			puts 'Indexing pages...'
 			#items = site.html_pages
 	    	items = site.pages.dup.concat(site.posts)
@@ -25,7 +29,7 @@ module Jekyll
 				puts 'Indexing page:' << item.url
 				page_text = extract_text(site,item)
 				# Build Request URL
-				url = URI.parse(@solr_url.dup.concat(item.url))
+				url = URI.parse(@solr_index_url.dup.concat(item.url))
 				# Build HTTP CLient object
 				http = Net::HTTP.new(url.host, url.port)
 				# Build Http Post Request
@@ -47,6 +51,16 @@ module Jekyll
 		def extract_text(site, page)
 			page.render({}, site.site_payload)	
 			page_text = page.output		
+		end
+
+		def delete_index()
+            uri = URI(@solr_delete_index_url)
+            response = Net::HTTP.get(uri)
+            response_data = REXML::Document.new(response.body)
+            solr_response_code = response_data.elements["response/lst/int[@name='status']"].text
+            if solr_response_code.to_i > 0
+                raise 'Solr Index Delete Failed with reason' << response.body
+            end
 		end
 
 	end
