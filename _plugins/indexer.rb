@@ -11,12 +11,12 @@ module Jekyll
 			# Raise Error if solr host is missing in configuration.
 			raise ArgumentError.new 'Missing solr_host.' unless config['solr_host']
 			@solr_index_url = config['solr_host'].dup.concat("/solr/update/extract?fmap.content=attr_content&commit=true&literal.id=")
-			#@solr_delete_index_url = config['solr_host'].dup.concat("/solr/update?stream.body=<delete><query>*:*</query></delete>&commit=true")
+			@solr_delete_index_url = config['solr_host'].dup.concat("/solr/update?stream.body=<delete><query>*:*</query></delete>&commit=true")
 	    end
 
 		def generate(site)
 		    puts 'Deleting existing index..'
-		    #delete_index()
+		    delete_index()
 		    puts 'Existing index deleted..'
 			puts 'Indexing pages...'
 			#items = site.html_pages
@@ -54,9 +54,9 @@ module Jekyll
 		end
 
 		def delete_index()
-            uri = URI(@solr_delete_index_url)
+            uri = URI.parse(URI.encode(@solr_delete_index_url))
             response = Net::HTTP.get(uri)
-            response_data = REXML::Document.new(response.body)
+            response_data = REXML::Document.new(response)
             solr_response_code = response_data.elements["response/lst/int[@name='status']"].text
             if solr_response_code.to_i > 0
                 raise 'Solr Index Delete Failed with reason' << response.body
