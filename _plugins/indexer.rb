@@ -25,7 +25,7 @@ module Jekyll
 				puts 'Indexing page:' << item.url
 				page_text = extract_text(site,item)
 				# Build Request URL
-				url = URI.parse(@solr_url.concat(item.url))
+				url = URI.parse(@solr_url.dup.concat(item.url))
 				# Build HTTP CLient object
 				http = Net::HTTP.new(url.host, url.port)
 				# Build Http Post Request
