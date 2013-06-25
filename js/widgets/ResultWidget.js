@@ -21,7 +21,9 @@ AjaxSolr.ResultWidget = AjaxSolr.AbstractWidget.extend({
     else
     {
         $(this.target).empty();
-        $(this.target).html('<h2>More than one document found with text:' + this.manager.response.responseHeader.params.q + '</h2>')
+        var queryText = this.manager.response.responseHeader.params.q;
+        queryText = queryText.substring(14, queryText.length - 1);
+        $(this.target).html('<h2>Documents with search text: ' + queryText + '</h2>')
         for (var i = 0, l = this.manager.response.response.docs.length; i < l; i++) {
           var doc = this.manager.response.response.docs[i];
           $(this.target).append(this.template(doc));
