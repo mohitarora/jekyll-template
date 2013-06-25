@@ -1,3 +1,4 @@
 pygments: true
 permalink: none
 solr_host: http://ec2-54-226-122-231.compute-1.amazonaws.com:8081
+solr_indexing_enabled: true
