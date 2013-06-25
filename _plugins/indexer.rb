@@ -10,7 +10,7 @@ module Jekyll
 			super(config)
 			# Raise Error if solr configuration parameters are missing.
 			raise ArgumentError.new 'Missing solr_indexing_url.' unless config['solr_indexing_url']
-			@solr_url = config['solr_indexing_url'].concat("?commit=true&literal.id=")
+			@solr_url = config['solr_indexing_url'].concat("?fmap.content=attr_content&commit=true&literal.id=")
 	    end
 
 		def generate(site)
