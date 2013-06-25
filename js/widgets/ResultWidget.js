@@ -4,18 +4,24 @@ AjaxSolr.ResultWidget = AjaxSolr.AbstractWidget.extend({
   start: 0,
 
   beforeRequest: function () {
-    $(this.target).html($('<img>').attr('src', '/images/ajax-loader.gif'));
+    //$(this.target).html($('<img>').attr('src', '/images/ajax-loader.gif'));
   },
 
   afterRequest: function () {
-    $(this.target).empty();
     //If there are no search results, show no results and a link to home page.
     if(this.manager.response.response.docs.length == 0)
     {
+        $(this.target).empty();
         $(this.target).html(this.noResult())
+    }
+    else if(this.manager.response.response.docs.length == 1)
+    {
+        document.location.href = this.manager.response.response.docs[0].id;
     }
     else
     {
+        $(this.target).empty();
+        $(this.target).html('<h2>More than one document found with text:' + this.manager.response.responseHeader.params.q + '</h2>')
         for (var i = 0, l = this.manager.response.response.docs.length; i < l; i++) {
           var doc = this.manager.response.response.docs[i];
           $(this.target).append(this.template(doc));
